@@ -15,31 +15,31 @@ Next go over to the `src/index.js` file and modify our initial bootstrap step to
 
 ```js
 // step 1 add these imports
-import { Provider } from 'react-redux';
-import configureStore from './redux/configureStore';
+import { Provider } from "react-redux";
+import configureStore from "./redux/configureStore";
 
 const initialState = {};
 const { store } = configureStore(initialState);
 
 ReactDOM.render(
-    // step 2 wrap your app in the Provider here
-    // <React.StrictMode>
-    //   <App />
-    // </React.StrictMode>,
-    <Provider store={store}>
-        <App />
-    </Provider>,
-    document.getElementById('root')
+	// step 2 wrap your app in the Provider here
+	// <React.StrictMode>
+	//   <App />
+	// </React.StrictMode>,
+	<Provider store={store}>
+		<App />
+	</Provider>,
+	document.getElementById("root")
 );
 ```
 
 Note the use of the `configureStore` method, as it sets up the interaction with redux that is to be had by the application as you see here:
 
 ```js
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import rootReducer from './reducers/index';
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import { composeWithDevTools } from "redux-devtools-extension";
+import rootReducer from "./reducers/index";
 
 const middleware = [thunk];
 const enhancers = [];
@@ -47,16 +47,16 @@ const enhancers = [];
 // create enhancers to include middleware
 // thunk allows you to dispatch functions between the actions
 const composedEnhancers = composeWithDevTools(
-    applyMiddleware(...middleware),
-    ...enhancers
+	applyMiddleware(...middleware),
+	...enhancers
 );
 
 // create the store and return it to the application onload
 // note that here we are including our reducers to setup our store and interactions across the application
 export default function configureStore(initialState) {
-    const store = createStore(rootReducer, initialState, composedEnhancers);
+	const store = createStore(rootReducer, initialState, composedEnhancers);
 
-    return { store };
+	return { store };
 }
 ```
 
@@ -71,12 +71,8 @@ const dispatch = useDispatch();
 const episodes = useSelector((state) => state.Episodes.episodes);
 
 useEffect(() => {
-    // if the value is empty, send a dispatch action to the store to load the episodes correctly
-    if (episodes.length === 0) {
-        console.log('hello');
-        dispatch(EpisodesActions.retrieveEpisodes());
-    }
-});
+	dispatch(EpisodesActions.retrieveEpisodes());
+}, [dispatch]);
 ```
 
 When we interact with redux here we are also using hooks. This is much easier than the `connect` methods that were used in earlier version of React.

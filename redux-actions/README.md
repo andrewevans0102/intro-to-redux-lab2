@@ -4,9 +4,9 @@ In this section, you'll follow the same process you did to setup the `EpisodesPa
 
 You'll create:
 
--   `src/redux/actions/Quotes.js`
--   `src/redux/actionsTypes/Quotes.js`
--   `src/redux/actions/reducers/Quotes.js`
+- `src/redux/actions/Quotes.js`
+- `src/redux/actionsTypes/Quotes.js`
+- `src/redux/actions/reducers/Quotes.js`
 
 Then in the `QuotesPage` component you'll setup the same `action --> effect --> action --> reducer` flow that we did before.
 
@@ -17,9 +17,6 @@ const dispatch = useDispatch();
 const quotes = useSelector((state) => state.Quotes.quotes);
 
 useEffect(() => {
-    // if the value is empty, send a dispatch action to the store to load the episodes correctly
-    if (quotes.length === 0) {
-        dispatch(QuotesActions.retrieveQuotes());
-    }
-});
+	dispatch(QuotesActions.retrieveQuotes());
+}, [dispatch]);
 ```
